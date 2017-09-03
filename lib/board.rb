@@ -7,6 +7,7 @@ require './lib/cell'
             @cells = Array.new(4) {Array.new(4) {Cell.new}}
         end 
     
+        
         def display_board
             
             puts "==========="
@@ -50,14 +51,16 @@ require './lib/cell'
 
         end 
 
+       
         def take_a_shot(coordinates)
             #add edge case for invalid input 
-            letter = coordinates[0]
-            number = coordinates[1]
+            # letter = coordinates[0]
+            # number = coordinates[1]
             
-            letter_value = input_converter_for_shot(letter)
-            number_value = number.to_i - 1 
+            # letter_value = input_converter_for_shot(letter)
+            # number_value = number.to_i - 1 
             
+            letter_value, number_value = coordinate_converter(coordinates)
             cell = @cells[letter_value][number_value]
             cell.hit = true
 
@@ -67,8 +70,12 @@ require './lib/cell'
         
         end 
         
-        def input_converter_for_shot(letter)
+        def coordinate_converter(coordinates)
+            letter = coordinates[0]
             letter = letter.upcase
+           
+            number_value = coordinates[1].to_i - 1
+            
             input_hash = {
                 'A'=> 0,
                 'B'=> 1,
@@ -76,6 +83,10 @@ require './lib/cell'
                 'D'=> 3
             }
             
-            return input_hash[letter]
+            return input_hash[letter],number_value
+        end 
+
+        def ship_placer
+
         end 
     end 

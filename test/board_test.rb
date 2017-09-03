@@ -10,13 +10,13 @@ class BoardTest < Minitest::Test
     def test_converts_input_letter_to_array_value
         board = Board.new
         
-        assert_equal 0, board.input_converter_for_shot('A')
+        assert_equal 0,0 , board.coordinate_converter('A1')
     
     end 
    
     def test_it_takes_shots
         board = Board.new
-        board.take_a_shot('A1') 
+        board.take_a_shot('A2') 
         board.take_a_shot('B2')
         board.take_a_shot('C3')
         board.display_board
