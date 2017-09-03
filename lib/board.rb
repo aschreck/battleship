@@ -90,4 +90,15 @@ require './lib/cell'
             cell.ship = 'true'
 
         end 
+
+        def computer_coordinate_selection
+            letters = ('A'..'D').to_a
+            digits = (1..4).to_a
+
+            letter = letters.sample
+            digit = digits.sample
+            coordinates = letter + digit.to_s
+            
+            return coordinates
+        end 
     end 

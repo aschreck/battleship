@@ -23,6 +23,7 @@ class BoardTest < Minitest::Test
     end 
     
     def test_prepends_letter_to_map
+        skip
         board = Board.new
         array = ['a','b','c','d']
         letter1 = board.prepend_letter_to_map(array, 'a')
@@ -36,7 +37,9 @@ class BoardTest < Minitest::Test
         assert_equal 'D ', letter4
 
     end 
+   
     def test_it_displays_hits_and_misses
+       skip
         board = Board.new
         board.place_a_ship('A2')
         board.take_a_shot('A2')
@@ -60,6 +63,14 @@ class BoardTest < Minitest::Test
 
     
     end
+
+    def test_random_coordinates
+         board = Board.new
+         puts  board.computer_coordinate_selection 
+         puts board.computer_coordinate_selection 
+         puts board.computer_coordinate_selection 
+         puts board.computer_coordinate_selection 
+    end 
 
     
 end 
