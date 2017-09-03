@@ -37,7 +37,28 @@ class BoardTest < Minitest::Test
 
     end 
     def test_it_displays_hits_and_misses
+        board = Board.new
+        board.place_a_ship('A2')
+        board.take_a_shot('A2')
+        board.place_a_ship('B1')
+        board.take_a_shot('B1')
+        board.place_a_ship('C3')
+        board.take_a_shot('C3')
+        board.take_a_shot('C4')
 
+        # display =
+        # '==========='
+        # '. 1 2 3 4  '
+        # 'A   H      '
+        # 'B H        '
+        # 'C     H M  '
+        # 'D          '
+        # '==========='
+        
+
+        board.display_board
+
+    
     end
 
     

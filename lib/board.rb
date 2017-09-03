@@ -23,9 +23,9 @@ require './lib/cell'
                     if not cell.hit
                         row_visual = row_visual + '  '
                     elsif cell.hit && !cell.ship
-                        row_visual = row_visual + 'M'
+                        row_visual = row_visual + 'M '
                     else 
-                        row_visual = row_visual + 'H'
+                        row_visual = row_visual + 'H '
                     end 
                 end 
                 
@@ -54,12 +54,8 @@ require './lib/cell'
        
         def take_a_shot(coordinates)
             #add edge case for invalid input 
-            # letter = coordinates[0]
-            # number = coordinates[1]
             
-            # letter_value = input_converter_for_shot(letter)
-            # number_value = number.to_i - 1 
-            
+        
             letter_value, number_value = coordinate_converter(coordinates)
             cell = @cells[letter_value][number_value]
             cell.hit = true
@@ -86,7 +82,12 @@ require './lib/cell'
             return input_hash[letter],number_value
         end 
 
-        def ship_placer
+        def place_a_ship(coordinates)
+            #pass coordinates into converter
+            letter_value, number_value = coordinate_converter(coordinates)
+
+            cell = @cells[letter_value][number_value]
+            cell.ship = 'true'
 
         end 
     end 
