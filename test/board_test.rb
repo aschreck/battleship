@@ -66,11 +66,30 @@ class BoardTest < Minitest::Test
 
     def test_random_coordinates
          board = Board.new
-         puts  board.computer_coordinate_selection 
-         puts board.computer_coordinate_selection 
          puts board.computer_coordinate_selection 
          puts board.computer_coordinate_selection 
     end 
 
+   def test_next_cell_builds_new_possibility_arrays
+        
+        board = Board.new
+        char_array = ('A'..'D').to_a
+        num_array = (1..4).to_a
+        possibility_array1 = board.next_cell_possibility_builder(char_array, 'B')
+        possibility_array2 = board.next_cell_possibility_builder(num_array, 3)
+        edge_possibility1 = board.next_cell_possibility_builder(char_array, 'A')
+        edge_possibility2 = board.next_cell_possibility_builder(char_array, 'D')
+
+        assert_equal ['A', 'B', 'C'], possibility_array1
+        assert_equal [2, 3, 4], possibility_array2
+        assert_equal ['A', 'B'], edge_possibility1
+        assert_equal ['C', 'D'], edge_possibility2
+   
+    end 
+   
+    def test_computer_ship_placement
+        skip
+        board = Board.new
+    end    
     
 end 

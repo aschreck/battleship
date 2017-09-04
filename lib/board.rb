@@ -87,18 +87,47 @@ require './lib/cell'
             letter_value, number_value = coordinate_converter(coordinates)
 
             cell = @cells[letter_value][number_value]
-            cell.ship = 'true'
+            if cell.ship = 'false'
+                cell.ship = 'true'
+            end  
 
         end 
 
-        def computer_coordinate_selection
-            letters = ('A'..'D').to_a
-            digits = (1..4).to_a
-
-            letter = letters.sample
-            digit = digits.sample
-            coordinates = letter + digit.to_s
+        def computer_ship_placer(type)
             
-            return coordinates
+            #randomly generate a coordinate and the arrays used to select it. 
+            coordinates, letter_array, number_array = computer_coordinate_selection
+ #Phase 1     #put down a ship—function has built in conversion
+            place_a_ship(coordinates)
+            
+            next_letter_array = next_cell_possibility_builder(letter_array)
+            next_number_array = next_cell_possibility_builder(number_array) 
+            next_coordinates = computer_coordinate_selection(next_letter_array, next_number_array)
+
         end 
+       
+        def computer_coordinate_selection(letters = ('A'..'D').to_a, numbers = (1..4).to_a)
+            #this needs possibility arrays from function below. 
+            letter = letters.sample
+            number = numbers.sample
+            coordinates = letter + number.to_s
+            
+            return coordinates, letters, numbers
+        end 
+
+
+        def next_cell_possibility_builder (array, input)
+            #given an array and coordinates, this function
+            #returns an array of possible next placement locations
+            #on that axis. 
+            n = array.index(input)
+            if n == 0
+                new_array = array[0..1]
+            elsif n == 3
+                new_array = array[2..3]
+            else
+                new_array = array[n-1..n+1]
+            end 
+            return new_array
+        end  
     end 
