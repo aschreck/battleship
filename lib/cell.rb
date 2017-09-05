@@ -6,4 +6,13 @@ class Cell
         @hit = false
     end 
 
+    def ship?   
+        if @ship == false
+            false
+        else
+            true  
+        end 
+        
+    end 
+
 end 

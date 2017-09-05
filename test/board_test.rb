@@ -15,11 +15,12 @@ class BoardTest < Minitest::Test
     end 
    
     def test_it_takes_shots
+        skip
         board = Board.new
         board.take_a_shot('A2') 
         board.take_a_shot('B2')
         board.take_a_shot('C3')
-        board.display_board
+        board.display_board_board
     end 
     
     def test_prepends_letter_to_map
@@ -38,8 +39,8 @@ class BoardTest < Minitest::Test
 
     end 
    
-    def test_it_displays_hits_and_misses
-       skip
+    def test_it_display_boards_hits_and_misses
+        skip
         board = Board.new
         board.place_a_ship('A2')
         board.take_a_shot('A2')
@@ -49,7 +50,7 @@ class BoardTest < Minitest::Test
         board.take_a_shot('C3')
         board.take_a_shot('C4')
 
-        # display =
+        # display_board =
         # '==========='
         # '. 1 2 3 4  '
         # 'A   H      '
@@ -65,12 +66,13 @@ class BoardTest < Minitest::Test
     end
 
     def test_random_coordinates
-         board = Board.new
+        skip 
+        board = Board.new
          puts board.computer_coordinate_selection 
          puts board.computer_coordinate_selection 
     end 
 
-   def test_next_cell_builds_new_possibility_arrays
+    def test_next_cell_builds_new_possibility_arrays
         
         board = Board.new
         char_array = ('A'..'D').to_a
@@ -87,9 +89,30 @@ class BoardTest < Minitest::Test
    
     end 
    
-    def test_computer_ship_placement
-        skip
+    def test_new_possibility_builder
         board = Board.new
+        numbers = (1..4).to_a
+        letters = ('A'..'D').to_a
+        
+        assert_equal [1, 2], board.next_cell_possibility_builder(numbers, 1)        
+        assert_equal [1, 2, 3], board.next_cell_possibility_builder(numbers, 2)  
+        assert_equal [2, 3, 4], board.next_cell_possibility_builder(numbers, 3)  
+        assert_equal [3, 4], board.next_cell_possibility_builder(numbers, 4) 
+        assert_equal ['A', 'B'], board.next_cell_possibility_builder(letters, 'A')  
+        assert_equal ['A', 'B', 'C'], board.next_cell_possibility_builder(letters, 'B')  
+        assert_equal ['B', 'C', 'D'], board.next_cell_possibility_builder(letters, 'C')  
+        assert_equal ['C', 'D'], board.next_cell_possibility_builder(letters, 'D')  
+    end 
+    
+    def test_computer_ship_placement
+        board = Board.new
+        board.computer_ship_placer(2)
+        require 'pry'; binding.pry
+        
+        board.display_board
+        
+        
     end    
+    
     
 end 
