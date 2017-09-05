@@ -75,7 +75,7 @@ class BoardTest < Minitest::Test
     end 
 
     def test_next_cell_builds_new_possibility_arrays
-        
+        skip
         board = Board.new
         char_array = ('A'..'D').to_a
         num_array = (1..4).to_a
@@ -92,7 +92,7 @@ class BoardTest < Minitest::Test
     end 
    
     def test_new_possibility_builder
-        
+        skip
         board = Board.new
         numbers = (1..4).to_a
         letters = ('A'..'D').to_a
@@ -107,28 +107,20 @@ class BoardTest < Minitest::Test
         assert_equal ['C', 'D'], board.next_cell_possibility_builder(letters, 'D')  
     end 
     
-    def test_computer_ship_placement
-        skip
-        board = Board.new
-        board.computer_ship_placer(2)
-        
-        board.display_board
-        
-        
-    end    
-
+    
     def test_array_permutations
-        
+        skip
         board = Board.new
         numbers = (1..2).to_a
         letters = ('A'..'B').to_a
         array = board.array_permutations(letters, numbers)
         expected_array = ['A1', 'A2', 'B1', 'B2']
-       
+        
         assert_equal expected_array, array 
     end 
-
+    
     def test_takes_coordinates_and_returns_all_possibilities
+        skip
         board = Board.new
         letter_axis_possibilities, number_axis_possibilities = board.coordinate_to_possibilities('A3')
         
@@ -137,21 +129,48 @@ class BoardTest < Minitest::Test
     end 
     
     def test_array_permutations_can_return_list_of_all_possible_coordinates_not_arrays
+        skip
         board = Board.new
         letter_axis_possibilities, number_axis_possibilities = board.coordinate_to_possibilities('A3')
         bloated_possible = board.array_permutations(letter_axis_possibilities, number_axis_possibilities)
-       
+        
         assert_equal ['A2','A3', 'A4', 'B2', 'B3', 'B4'], bloated_possible
     end 
     
     def test_eliminate_impossible_coordinates
+        skip
         board = Board.new
         letter_axis_possibilities, number_axis_possibilities = board.coordinate_to_possibilities('A3')
         bloated_possible = board.array_permutations(letter_axis_possibilities, number_axis_possibilities)
-       
+        
         #I want some method that will cut out the invalid coordinates from bloated possible
-
-       assert_equal ['A2', 'A4', 'B3'] , board.eliminate_invalid_coordinates(bloated_possible, 'A3')
-
+        
+        assert_equal ['A2', 'A4', 'B3'] , board.eliminate_invalid_coordinates(bloated_possible, 'A3')
+        
     end 
-end 
+    
+    def test_it_generates_all_possible_cells
+        skip
+        board = Board.new
+        
+        all_cells = ['A1','A2','A3','A4','B1','B2','B3','B4','C1','C2','C3','C4','D1','D2','D3','D4']
+        assert_equal all_cells, board.generate_all_cells
+    end 
+    
+    def test_input_coordinate_return_array_of_real_possibilities
+        skip
+        board = Board.new
+        possibilities = board.coordinate_to_possible_coordinates('B2')
+        assert_equal ['A2','B1', 'B3', 'C2'],possibilities
+    end 
+    
+    def test_computer_ship_placement
+        board = Board.new
+        board.computer_ship_placer(2)
+        
+        board.display_board
+        
+        
+    end    
+
+end

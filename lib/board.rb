@@ -70,7 +70,7 @@ class Board
     
     def coordinate_converter(coordinates)
         letter = coordinates[0]
-        letter = letter.upcase
+        letter = letter.upcase if letter.class == String
         
         number_value = coordinates[1].to_i - 1
         
@@ -109,21 +109,19 @@ class Board
     
     def computer_ship_placer(ship_size)
         count = 0
-        letters = ('A'..'D').to_a
-        numbers = (1..4).to_a
+        available_cells = generate_all_cells
         until count == ship_size
-            coordinates = computer_coordinate_selection(letters, numbers) 
-        
+            #choose a coordinate from a single array. 
+            coordinates = computer_coordinate_selection(available_cells) 
+            
             cell = get_cell(coordinates)
             
-            if not cell.ship?
+            unless cell.ship?
                 cell.ship = true
                 count +=1
-                chosen_letter = coordinates[0]
-                chosen_number = coordinates[1].to_i
+                #redefine available_cells to go back into the loop.
+                available_cells = coordinate_to_possible_coordinates(coordinates)
                 
-                letters = next_cell_possibility_builder(letters, chosen_letter)
-                numbers = next_cell_possibility_builder(numbers, chosen_number)
                 
                 
             end 
@@ -132,15 +130,18 @@ class Board
 
     end 
     
-    def computer_coordinate_selection(letters = ('A'..'D').to_a, numbers = (1..4).to_a) 
-        #this needs possibility arrays from function below. 
-        letter = letters.sample
-        number = numbers.sample
-        coordinates = letter + number.to_s
-        
-        return coordinates
+   
+    def computer_coordinate_selection(array)
+        selection = array.sample
+        selection
     end 
+   
 
+    def generate_all_cells
+        letters = ('A'..'D').to_a
+        numbers = (1..4).to_a
+        all_cells = array_permutations(letters, numbers)
+    end 
 
     def next_cell_possibility_builder (array, input)
 
@@ -148,6 +149,7 @@ class Board
         
         n = array.index(input)
         
+    
         
         if n == 0
             new_array = array[0..1]
@@ -203,4 +205,15 @@ class Board
         return lean_array
     end
 
+    def choose_from_array(array)
+        coordinate = array.sample
+    end 
+
+    def coordinate_to_possible_coordinates(coordinates)
+        letter_possibilities, number_possibilities = coordinate_to_possibilities(coordinates)
+        bloated_possibles = array_permutations(letter_possibilities, number_possibilities)
+        lean_possibles = eliminate_invalid_coordinates(bloated_possibles, coordinates)
+        
+        return lean_possibles
+    end 
 end 
