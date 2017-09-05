@@ -75,7 +75,7 @@ class BoardTest < Minitest::Test
     end 
 
     def test_next_cell_builds_new_possibility_arrays
-        skip
+        
         board = Board.new
         char_array = ('A'..'D').to_a
         num_array = (1..4).to_a
@@ -92,7 +92,7 @@ class BoardTest < Minitest::Test
     end 
    
     def test_new_possibility_builder
-        skip
+        
         board = Board.new
         numbers = (1..4).to_a
         letters = ('A'..'D').to_a
@@ -118,7 +118,7 @@ class BoardTest < Minitest::Test
     end    
 
     def test_array_permutations
-        skip
+        
         board = Board.new
         numbers = (1..2).to_a
         letters = ('A'..'B').to_a
@@ -135,15 +135,23 @@ class BoardTest < Minitest::Test
         assert_equal ['A', 'B'], letter_axis_possibilities
         assert_equal [2, 3, 4], number_axis_possibilities
     end 
-    def test_eliminate_impossible_coordinates
-        skip
+    
+    def test_array_permutations_can_return_list_of_all_possible_coordinates_not_arrays
         board = Board.new
-        coordinate = 'B2'
+        letter_axis_possibilities, number_axis_possibilities = board.coordinate_to_possibilities('A3')
+        bloated_possible = board.array_permutations(letter_axis_possibilities, number_axis_possibilities)
        
-        #in the end, I want this to take an array of all possibilities and shave off the corners
-        coordinates = 'B2'
+        assert_equal ['A2','A3', 'A4', 'B2', 'B3', 'B4'], bloated_possible
+    end 
+    
+    def test_eliminate_impossible_coordinates
+        board = Board.new
+        letter_axis_possibilities, number_axis_possibilities = board.coordinate_to_possibilities('A3')
+        bloated_possible = board.array_permutations(letter_axis_possibilities, number_axis_possibilities)
+       
+        #I want some method that will cut out the invalid coordinates from bloated possible
 
-        bloated_possible = array_permutations(letters, numbers)
+       assert_equal ['A2', 'A4', 'B3'] , board.eliminate_invalid_coordinates(bloated_possible, 'A3')
 
     end 
 end 

@@ -161,23 +161,7 @@ class Board
 
     end  
 
-    def valid_coordinates(coordinates) #in progress
-        #I want this method to take an input coordinate and return a list of all possible
-        #coordinates in their two digit form
-        # letters = ('A'..'D').to_a
-        # numbers = (1..4).to_a
-        # coordinate_letter = coordinates[0]
-        # coordinate_number = coordinates[1]
-
-        # y_possibilities = next_cell_possibility_builder(letters, coordinate_letter)
-        # x_possibilities = next_cell_possibility_builder(numbers, coordinate_number)
-        #should return an array of all possible values along each axis.
-        #Put all of the possible combinations together and then exclude ones
-        #that differ in both letter and number.
-
-
-        
-    end 
+    
 
     def coordinate_to_possibilities(coordinates, letters = ('A'..'D').to_a, numbers = (1..4).to_a)
         #take a coordinate, and return all the possible next positions. 
@@ -193,7 +177,7 @@ class Board
     end 
     
     def array_permutations(array1, array2)
-
+        #letter array should always go first
         array_permutations = array1.flat_map do |x|   
             
             array2.flat_map do |y|
@@ -202,5 +186,21 @@ class Board
         end 
         array_permutations
     end 
+
+    def eliminate_invalid_coordinates(possibility_array, original_coordinate)
+        lean_array = []
+        possibility_array.each do |coordinate| #will be a 2 char string
+            diff_count = 0
+            original_letter = original_coordinate[0]
+            original_number = original_coordinate[1]
+            letter = coordinate[0]
+            number = coordinate[1]
+            diff_count += 1 unless original_letter == letter
+            diff_count += 1 unless original_number == number
+
+            lean_array << coordinate if diff_count == 1
+        end 
+        return lean_array
+    end
 
 end 
