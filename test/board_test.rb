@@ -107,7 +107,6 @@ class BoardTest < Minitest::Test
     def test_computer_ship_placement
         board = Board.new
         board.computer_ship_placer(2)
-        require 'pry'; binding.pry
         
         board.display_board
         

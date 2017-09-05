@@ -143,9 +143,7 @@ require './lib/cell'
 
 
         def next_cell_possibility_builder (array, input)
-            #given an array and coordinates, this function
-            #returns an array of possible next placement locations
-            #on that axis. 
+           #this has a problem when it selects both opposite values and the ship is places diagonal. 
            
             n = array.index(input)
             
