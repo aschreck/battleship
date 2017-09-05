@@ -3,11 +3,13 @@ require './lib/board'
 class BoardTest < Minitest::Test
 
     def test_it_exists
+        skip
         board = Board.new
         assert_instance_of Board, board
     end 
 
     def test_converts_input_letter_to_array_value
+        skip
         board = Board.new
         
         assert_equal 0,0 , board.coordinate_converter('A1')
@@ -73,7 +75,7 @@ class BoardTest < Minitest::Test
     end 
 
     def test_next_cell_builds_new_possibility_arrays
-        
+        skip
         board = Board.new
         char_array = ('A'..'D').to_a
         num_array = (1..4).to_a
@@ -90,6 +92,7 @@ class BoardTest < Minitest::Test
     end 
    
     def test_new_possibility_builder
+        skip
         board = Board.new
         numbers = (1..4).to_a
         letters = ('A'..'D').to_a
@@ -105,6 +108,7 @@ class BoardTest < Minitest::Test
     end 
     
     def test_computer_ship_placement
+        skip
         board = Board.new
         board.computer_ship_placer(2)
         
@@ -112,6 +116,34 @@ class BoardTest < Minitest::Test
         
         
     end    
-    
-    
+
+    def test_array_permutations
+        skip
+        board = Board.new
+        numbers = (1..2).to_a
+        letters = ('A'..'B').to_a
+        array = board.array_permutations(letters, numbers)
+        expected_array = ['A1', 'A2', 'B1', 'B2']
+       
+        assert_equal expected_array, array 
+    end 
+
+    def test_takes_coordinates_and_returns_all_possibilities
+        board = Board.new
+        letter_axis_possibilities, number_axis_possibilities = board.coordinate_to_possibilities('A3')
+        
+        assert_equal ['A', 'B'], letter_axis_possibilities
+        assert_equal [2, 3, 4], number_axis_possibilities
+    end 
+    def test_eliminate_impossible_coordinates
+        skip
+        board = Board.new
+        coordinate = 'B2'
+       
+        #in the end, I want this to take an array of all possibilities and shave off the corners
+        coordinates = 'B2'
+
+        bloated_possible = array_permutations(letters, numbers)
+
+    end 
 end 
