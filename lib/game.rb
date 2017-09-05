@@ -5,7 +5,7 @@ class Game
     def initialize
         @player_board = Board.new
         @computer_board = Board.new
-        @phase = 'welcome'
+        @phase = :welcome
     end 
 
     def welcome_screen
@@ -33,9 +33,9 @@ class Game
         @computer_board.computer_ship_placer(2)
         @computer_board.computer_ship_placer(3)
         puts computer_ship_message
-        
+        #ask the player for her tiles
         first_ship_placement = gets.chomp.upcase
-      
+        #check if these coordinates are valid 
     
     end 
     
@@ -53,7 +53,6 @@ class Game
 
         Enter the squares for the two-unit ship:
         """
-
     end 
 end 
 

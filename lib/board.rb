@@ -92,8 +92,6 @@ class Board
         cell.ship = true  if not cell.ship?
             
         
-            
-
     end 
 
     def get_cell (coordinates)
@@ -205,9 +203,6 @@ class Board
         return lean_array
     end
 
-    def choose_from_array(array)
-        coordinate = array.sample
-    end 
 
     def coordinate_to_possible_coordinates(coordinates)
         letter_possibilities, number_possibilities = coordinate_to_possibilities(coordinates)
@@ -216,4 +211,12 @@ class Board
         
         return lean_possibles
     end 
+
+    def coordinates_valid?(coordinates) #take in a pair of coordinates
+        coordinate_array = coordinates.split(' ')
+        possible_coordinates = coordinate_to_possible_coordinates(coordinate_array[0])
+        #check if the second coordinate is among those possible coordinates
+        return possible_coordinates.include?(coordinate_array[1])
+        
+    end
 end 

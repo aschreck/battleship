@@ -167,10 +167,14 @@ class BoardTest < Minitest::Test
     def test_computer_ship_placement
         board = Board.new
         board.computer_ship_placer(2)
+        board.computer_ship_placer(3)
         
         board.display_board
-        
-        
     end    
 
+    def test_can_determine_if_player_ship_selections_are_valid
+        board = Board.new
+        assert board.coordinates_valid?('A1 A2')
+        refute board.coordinates_valid?('A1 B2')
+    end 
 end
