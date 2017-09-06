@@ -133,6 +133,12 @@ class Board
         selection = array.sample
         selection
     end 
+
+    def computer_shot
+        all_cells = generate_all_cells
+        selection = computer_coordinate_selection(all_cells)
+        take_a_shot(selection)
+    end 
    
 
     def generate_all_cells
@@ -205,6 +211,7 @@ class Board
 
 
     def coordinate_to_possible_coordinates(coordinates)
+        return if coordinates == ''
         letter_possibilities, number_possibilities = coordinate_to_possibilities(coordinates)
         bloated_possibles = array_permutations(letter_possibilities, number_possibilities)
         lean_possibles = eliminate_invalid_coordinates(bloated_possibles, coordinates)
@@ -213,6 +220,7 @@ class Board
     end 
 
     def coordinates_valid?(coordinates) #take in a pair of coordinates
+        return if coordinates == ''
         coordinate_array = coordinates.split(' ')
         possible_coordinates = coordinate_to_possible_coordinates(coordinate_array[0])
         #check if the second coordinate is among those possible coordinates

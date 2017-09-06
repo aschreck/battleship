@@ -19,7 +19,7 @@ class Game
         
         if input == 'p' || input == 'play'
             #transition into ship-placement phase. 
-            @phase = :place_ships
+            @phase = :ship_placement
         elsif input == 'i' || input == 'instructions'
             #move to instruction page
         elsif input == 'q' || input == 'quit'
@@ -36,14 +36,17 @@ class Game
         #ask the player for her tiles
         
         first_ship_placement = ''
-        until first_ship_placement.coordinates_valid?
+        until @player_board.coordinates_valid?(first_ship_placement)
             puts "Enter the squares for the two unit ship."
         first_ship_placement = gets.chomp.upcase
         #check if these coordinates are valid 
-            if first_ship_placement.coordinates_valid?
+        
+            if @player_board.coordinates_valid?(first_ship_placement)
                 coordinate_array = first_ship_placement.split(' ')
                 first_coordinate = coordinate_array[0]
                 second_coordinate = coordinate_array[1]
+                require 'pry'; binding.pry
+                
                 @player_board.place_a_ship(first_coordinate)
                 @player_board.place_a_ship(second_coordinate) 
             end 
@@ -51,7 +54,7 @@ class Game
         end 
         
         second_ship_placement = ''
-        until first_ship_placement.coordinates_valid?
+        until @player_board.coordinates_valid?(second_ship_placement)
         puts "Please enter the squares for your second ship"
             second_ship_placement = gets.chomp.upcase
             if second_ship_placement.coordinates_valid?
@@ -66,7 +69,31 @@ class Game
     end 
     
     def main_phase
+        victor = :nobody
+        count = 0
+        #the player is shooting at the computer board and vice_versa
+        until victor == :human || victor == :computer
+        #player shooting phase
+        @computer_board.display_board
+        puts "Man the gunwales! It's time to take a shot! Enter your coordinate:"
+        puts ">"
+        player_shot = gets.chomp
+        @computer_board.take_a_shot(player_shot)
+
+        #computer shooting phase
+        @player_board.computer_shot
+        #check if anyone's count == 0    
+
+        victor = :human if @computer_board.count_ships == 0
+        victor = :computer if @human_board.count_ships == 0
+        count += 1
+        end 
         
+        if victory == :human
+            puts "Congratulations! You defeated the computer in #{count} turns!"
+        else 
+            puts "Bummer. You were defeated by the dumbest AI imaginable in #{count} turns. "
+        end 
 
     end 
 

@@ -200,16 +200,24 @@ class BoardTest < Minitest::Test
     def test_shooting_ships_reduces_the_count
         board = Board.new
 
-       board.cells[0][0].state = :ship
-       board.cells[0][1].state = :ship
+        board.cells[0][0].state = :ship
+        board.cells[0][1].state = :ship
 
-       assert_equal 2, board.count_ships
-       board.take_a_shot('A1')
-       board.take_a_shot('A2')
+        assert_equal 2, board.count_ships
+        board.take_a_shot('A1')
+        board.take_a_shot('A2')
 
-       assert_equal 0, board.count_ships
+        assert_equal 0, board.count_ships
 
     end 
 
-    
+    def test_computer_randomly_shoots
+        board = Board.new
+        
+        board.computer_shot
+        board.computer_shot
+        board.display_board
+    end 
+
+
 end
