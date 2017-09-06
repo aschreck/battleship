@@ -89,7 +89,7 @@ class Board
         
         cell = get_cell(coordinates)
         
-        cell.state == :ship if cell.state == :empty
+        cell.state = :ship if cell.state == :empty
             
         
     end 

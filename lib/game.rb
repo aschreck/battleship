@@ -45,7 +45,6 @@ class Game
                 coordinate_array = first_ship_placement.split(' ')
                 first_coordinate = coordinate_array[0]
                 second_coordinate = coordinate_array[1]
-                require 'pry'; binding.pry
                 
                 @player_board.place_a_ship(first_coordinate)
                 @player_board.place_a_ship(second_coordinate) 
@@ -57,7 +56,7 @@ class Game
         until @player_board.coordinates_valid?(second_ship_placement)
         puts "Please enter the squares for your second ship"
             second_ship_placement = gets.chomp.upcase
-            if second_ship_placement.coordinates_valid?
+            if @player_board.coordinates_valid?(second_ship_placement)
                 coordinate_array = second_ship_placement.split(' ')
                 first_coordinate = coordinate_array[0]
                 second_coordinate = coordinate_array[1]
@@ -65,7 +64,7 @@ class Game
                 @player_board.place_a_ship(second_coordinate) 
             end
         end 
-        phase = :main
+        @phase = :main
     end 
     
     def main_phase
@@ -76,20 +75,20 @@ class Game
         #player shooting phase
         @computer_board.display_board
         puts "Man the gunwales! It's time to take a shot! Enter your coordinate:"
-        puts ">"
+        print ">"
         player_shot = gets.chomp
         @computer_board.take_a_shot(player_shot)
 
         #computer shooting phase
         @player_board.computer_shot
         #check if anyone's count == 0    
-
+            
         victor = :human if @computer_board.count_ships == 0
-        victor = :computer if @human_board.count_ships == 0
+        victor = :computer if @player_board.count_ships == 0
         count += 1
         end 
         
-        if victory == :human
+        if victor == :human
             puts "Congratulations! You defeated the computer in #{count} turns!"
         else 
             puts "Bummer. You were defeated by the dumbest AI imaginable in #{count} turns. "

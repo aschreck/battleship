@@ -11,6 +11,13 @@ class BoardTest < Minitest::Test
         
     end 
 
+    def test_it_can_place_a_ship_within_the_board
+        game = Game.new
+        game.player_board.place_a_ship('A1')
+
+        game.player_board.display_board
+        
+    end
 
 end 
 
