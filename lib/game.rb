@@ -34,12 +34,41 @@ class Game
         @computer_board.computer_ship_placer(3)
         puts computer_ship_message
         #ask the player for her tiles
+        
+        first_ship_placement = ''
+        until first_ship_placement.coordinates_valid?
+            puts "Enter the squares for the two unit ship."
         first_ship_placement = gets.chomp.upcase
         #check if these coordinates are valid 
-    
+            if first_ship_placement.coordinates_valid?
+                coordinate_array = first_ship_placement.split(' ')
+                first_coordinate = coordinate_array[0]
+                second_coordinate = coordinate_array[1]
+                @player_board.place_a_ship(first_coordinate)
+                @player_board.place_a_ship(second_coordinate) 
+            end 
+        
+        end 
+        
+        second_ship_placement = ''
+        until first_ship_placement.coordinates_valid?
+        puts "Please enter the squares for your second ship"
+            second_ship_placement = gets.chomp.upcase
+            if second_ship_placement.coordinates_valid?
+                coordinate_array = second_ship_placement.split(' ')
+                first_coordinate = coordinate_array[0]
+                second_coordinate = coordinate_array[1]
+                @player_board.place_a_ship(first_coordinate)
+                @player_board.place_a_ship(second_coordinate) 
+            end
+        end 
+        phase = :main
     end 
     
+    def main_phase
+        
 
+    end 
 
 
 
@@ -50,8 +79,6 @@ class Game
         The first is two units long and the
         second is three units long.
         The grid has A1 at the top left and D4 at the bottom right.
-
-        Enter the squares for the two-unit ship:
         """
     end 
 end 

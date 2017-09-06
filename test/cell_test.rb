@@ -13,7 +13,7 @@ class CellTest < Minitest::Test
         
         refute cell.ship? 
         
-        cell.ship = true
+        cell.state = :ship
         assert cell.ship?
         
     end 

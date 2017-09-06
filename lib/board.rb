@@ -20,11 +20,11 @@ class Board
             
             row.each do |cell|
                 
-                if !cell.hit && !cell.ship 
+                if cell.state == :empty && cell.hit == :no
                     row_visual = row_visual + '  '
-                elsif cell.hit && !cell.ship
+                elsif cell.state == :empty && cell.hit == :yes
                     row_visual = row_visual + 'M '
-                elsif cell.ship 
+                elsif cell.state == :ship && cell.hit == :no
                     row_visual = row_visual + 'S '
                 else 
                     row_visual = row_visual + 'H '
@@ -60,11 +60,11 @@ class Board
     
         letter_value, number_value = coordinate_converter(coordinates)
         cell = @cells[letter_value][number_value]
-        cell.hit = true
+        cell.hit = :yes
 
         
-        cell.ship = 'destroyed' if cell.ship == true
-                
+        cell.state == :destroyed if cell.state == :ship
+            
     
     end 
     
@@ -89,7 +89,7 @@ class Board
         
         cell = get_cell(coordinates)
         
-        cell.ship = true  if not cell.ship?
+        cell.state == :ship if cell.state == :empty
             
         
     end 
@@ -115,7 +115,7 @@ class Board
             cell = get_cell(coordinates)
             
             unless cell.ship?
-                cell.ship = true
+                cell.state = :ship
                 count +=1
                 #redefine available_cells to go back into the loop.
                 available_cells = coordinate_to_possible_coordinates(coordinates)
@@ -217,6 +217,16 @@ class Board
         possible_coordinates = coordinate_to_possible_coordinates(coordinate_array[0])
         #check if the second coordinate is among those possible coordinates
         return possible_coordinates.include?(coordinate_array[1])
-        
+
     end
+
+    def count_ships
+        count = 0
+        @cells.each do |row|
+            row.each {|cell| count += 1 if cell.state == :ship && cell.hit == :no}
+        end 
+        count
+    end
+
+
 end 

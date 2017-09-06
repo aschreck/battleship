@@ -177,4 +177,39 @@ class BoardTest < Minitest::Test
         assert board.coordinates_valid?('A1 A2')
         refute board.coordinates_valid?('A1 B2')
     end 
+
+    def test_it_can_count_ships
+        board = Board.new
+
+        board.computer_ship_placer(2)
+
+        assert_equal 2, board.count_ships 
+
+    end 
+    
+    def test_it_can_count_a_whole_board
+        board = Board.new
+
+        board.computer_ship_placer(2)
+        board.computer_ship_placer(3)
+
+        assert_equal 5, board.count_ships
+
+    end 
+
+    def test_shooting_ships_reduces_the_count
+        board = Board.new
+
+       board.cells[0][0].state = :ship
+       board.cells[0][1].state = :ship
+
+       assert_equal 2, board.count_ships
+       board.take_a_shot('A1')
+       board.take_a_shot('A2')
+
+       assert_equal 0, board.count_ships
+
+    end 
+
+    
 end
