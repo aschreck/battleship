@@ -2,9 +2,8 @@ require './lib/board'
 require './lib/game'
 
 game = Game.new 
-a = 1
-b = 2
-until a == b
+
+loop do 
     if game.phase == :welcome
         game.welcome_screen
     elsif game.phase == :ship_placement
@@ -13,4 +12,5 @@ until a == b
     elsif game.phase == :main
         game.main_phase
     end 
+
 end 

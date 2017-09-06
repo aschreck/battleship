@@ -23,7 +23,7 @@ class Game
         elsif input == 'i' || input == 'instructions'
             #move to instruction page
         elsif input == 'q' || input == 'quit'
-            #close the program
+            exit
         else
             puts 'Invalid input!'
         end 
@@ -90,8 +90,10 @@ class Game
         
         if victor == :human
             puts "Congratulations! You defeated the computer in #{count} turns!"
+            exit
         else 
-            puts "Bummer. You were defeated by the dumbest AI imaginable in #{count} turns. "
+            puts "Bummer. You were defeated by the dumbest AI imaginable in #{count} turns."
+            exit
         end 
 
     end 
