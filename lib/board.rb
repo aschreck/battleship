@@ -55,10 +55,7 @@ class Board
     end 
 
     
-    def take_a_shot(coordinates)
-        #add edge case for invalid input 
-        
-    
+    def take_a_shot(coordinates)        
         letter_value, number_value = coordinate_converter(coordinates)
         cell = @cells[letter_value][number_value]
         cell.hit = :yes    
@@ -114,11 +111,7 @@ class Board
             unless cell.ship?
                 cell.state = :ship
                 count +=1
-                #redefine available_cells to go back into the loop.
-                available_cells = coordinate_to_possible_coordinates(coordinates)
-                
-                
-                
+                available_cells = coordinate_to_possible_coordinates(coordinates) 
             end 
         end 
         
@@ -158,13 +151,9 @@ class Board
     end 
 
     def next_cell_possibility_builder (array, input)
-
         input = input.to_i if input == '1' || input == '2' || input == '3' || input == '4'
-        
         n = array.index(input)
-        
     
-        
         if n == 0
             new_array = array[0..1]
         elsif n == 3
@@ -180,12 +169,10 @@ class Board
     
 
     def coordinate_to_possibilities(coordinates, letters = ('A'..'D').to_a, numbers = (1..4).to_a)
-        #take a coordinate, and return all the possible next positions. 
         
         letter = coordinates[0]
         number = coordinates[1]
         
-        #this will give me two arrays that contain the possibilities by axis. 
         letter_axis_possibilities = next_cell_possibility_builder(letters, letter)
         number_axis_possibilities = next_cell_possibility_builder(numbers, number)
 
@@ -233,7 +220,6 @@ class Board
         return if coordinates == ''
         coordinate_array = coordinates.split(' ')
         possible_coordinates = coordinate_to_possible_coordinates(coordinate_array[0])
-        #check if the second coordinate is among those possible coordinates
         return possible_coordinates.include?(coordinate_array[1])
 
     end
@@ -252,14 +238,16 @@ class Board
             cell = get_cell(coordinate)
             cell_count -= 1 if cell.hit == :yes
         end 
+        
         if cell_count == 0 && array.length == 3
             puts "You sunk the big one!" 
             return true
-        elsif cell_count == 0 && array.length ==2    
+        elsif cell_count == 0 && array.length == 2    
             puts "You sunk the little one!" 
             return true
         end 
 
+        
         
     end 
 

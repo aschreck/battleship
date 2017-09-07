@@ -75,8 +75,8 @@ class Game
     def main_phase
         victor = :nobody
         count = 0
-        two_ship = false
-        three_ship = false
+        two_ship_dead = false
+        three_ship_dead = false
         until victor == :human || victor == :computer
         @computer_board.display_board
         puts "Man the gunwales! It's time to take a shot! Enter your coordinate:"
@@ -86,8 +86,8 @@ class Game
 
         @player_board.computer_shot
         
-        two_ship = @computer_board.ship_alive?(@two_ship) unless two_ship
-        three_ship = @computer_board.ship_alive?(@three_ship) unless three_ship
+        two_ship_dead = @computer_board.ship_alive?(@two_ship) unless two_ship_dead
+        three_ship_dead = @computer_board.ship_alive?(@three_ship) unless three_ship_dead
         victor = :human if @computer_board.count_ships == 0
         victor = :computer if @player_board.count_ships == 0
         count += 1

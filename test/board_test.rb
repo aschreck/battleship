@@ -1,5 +1,6 @@
 require_relative "./test_helper"
 require './lib/board'
+require './lib/cell'
 class BoardTest < Minitest::Test
 
     def test_it_exists
@@ -53,6 +54,13 @@ class BoardTest < Minitest::Test
 
         board.display_board
     end
+
+    def test_board_can_retrieve_cells
+        board = Board.new
+        cell = board.get_cell('A1')
+
+        assert_instance_of Cell, cell
+    end 
 
     def test_random_coordinates
         board = Board.new
@@ -160,6 +168,14 @@ class BoardTest < Minitest::Test
         board.display_board
     end    
 
+    def test_computer_coordinate_selects_from_array
+        board = Board.new
+        possible_values = %w(A1 A2 A3)
+        value = board.computer_coordinate_selection(possible_values)
+
+        assert possible_values.include?(value)
+    end 
+    
     def test_can_determine_if_player_ship_selections_are_valid
         board = Board.new
         assert board.coordinates_valid?('A1 A2')
