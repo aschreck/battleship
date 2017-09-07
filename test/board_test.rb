@@ -4,21 +4,17 @@ require './lib/cell'
 class BoardTest < Minitest::Test
 
     def test_it_exists
-
         board = Board.new
         assert_instance_of Board, board
     end 
 
-    def test_converts_input_letter_to_array_value
-     
+    def test_converts_input_letter_to_array_value 
         board = Board.new
         
         assert_equal 0,0 , board.coordinate_converter('A1')
-    
     end 
    
     def test_it_takes_shots
-   
         board = Board.new
         board.take_a_shot('A2') 
         board.take_a_shot('B2')
@@ -38,7 +34,6 @@ class BoardTest < Minitest::Test
         assert_equal 'B ', letter2
         assert_equal 'C ', letter3
         assert_equal 'D ', letter4
-
     end 
    
     def test_it_display_boards_hits_and_misses
@@ -71,7 +66,6 @@ class BoardTest < Minitest::Test
     end 
 
     def test_next_cell_builds_new_possibility_arrays
-      
         board = Board.new
         char_array = ('A'..'D').to_a
         num_array = (1..4).to_a
@@ -89,7 +83,6 @@ class BoardTest < Minitest::Test
 
    
     def test_new_possibility_builder
-      
         board = Board.new
         numbers = (1..4).to_a
         letters = ('A'..'D').to_a
@@ -106,7 +99,6 @@ class BoardTest < Minitest::Test
     
     
     def test_array_permutations
-     
         board = Board.new
         numbers = (1..2).to_a
         letters = ('A'..'B').to_a
@@ -117,7 +109,6 @@ class BoardTest < Minitest::Test
     end 
     
     def test_takes_coordinates_and_returns_all_possibilities
-     
         board = Board.new
         letter_axis_possibilities, number_axis_possibilities = board.coordinate_to_possibilities('A3')
         
@@ -126,7 +117,6 @@ class BoardTest < Minitest::Test
     end 
     
     def test_array_permutations_can_return_list_of_all_possible_coordinates_not_arrays
-        
         board = Board.new
         letter_axis_possibilities, number_axis_possibilities = board.coordinate_to_possibilities('A3')
         bloated_possible = board.array_permutations(letter_axis_possibilities, number_axis_possibilities)
@@ -135,7 +125,6 @@ class BoardTest < Minitest::Test
     end 
     
     def test_eliminate_impossible_coordinates
-        
         board = Board.new
         letter_axis_possibilities, number_axis_possibilities = board.coordinate_to_possibilities('A3')
         bloated_possible = board.array_permutations(letter_axis_possibilities, number_axis_possibilities)
@@ -198,7 +187,6 @@ class BoardTest < Minitest::Test
         board.computer_ship_placer(3)
 
         assert_equal 5, board.count_ships
-
     end 
 
     def test_shooting_ships_reduces_the_count
@@ -212,7 +200,6 @@ class BoardTest < Minitest::Test
         board.take_a_shot('A2')
 
         assert_equal 0, board.count_ships
-
     end 
 
     def test_computer_randomly_shoots
@@ -222,6 +209,4 @@ class BoardTest < Minitest::Test
         board.computer_shot
         board.display_board
     end 
-
-
 end

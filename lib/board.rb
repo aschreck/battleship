@@ -1,13 +1,11 @@
 require './lib/cell'
-#board is going to manage 1) the board itself. 2) where ships are. 
-    # 3) mechanics of the shooting phase, altering properties of the cells
+
 class Board
     attr_accessor :cells
     
     def initialize 
         @cells = Array.new(4) {Array.new(4) {Cell.new}}
     end 
-
     
     def display_board
         
@@ -54,7 +52,6 @@ class Board
 
     end 
 
-    
     def take_a_shot(coordinates)        
         letter_value, number_value = coordinate_converter(coordinates)
         cell = @cells[letter_value][number_value]
@@ -79,13 +76,9 @@ class Board
     end 
 
     
-    def place_a_ship(coordinates)
-        
+    def place_a_ship(coordinates) 
         cell = get_cell(coordinates)
-        
         cell.state = :ship if cell.state == :empty
-            
-        
     end 
 
     def get_cell (coordinates)
@@ -94,11 +87,9 @@ class Board
         cell = @cells[letter_value][number_value]
     
         return cell
-
     end 
     
-    
-    
+
     def computer_ship_placer(ship_size)
         count = 0
         available_cells = generate_all_cells
@@ -114,7 +105,6 @@ class Board
                 available_cells = coordinate_to_possible_coordinates(coordinates) 
             end 
         end 
-        
         ship_coordinates
     end 
     
@@ -163,13 +153,11 @@ class Board
         end 
         
         return new_array
-
     end  
 
     
 
-    def coordinate_to_possibilities(coordinates, letters = ('A'..'D').to_a, numbers = (1..4).to_a)
-        
+    def coordinate_to_possibilities(coordinates, letters = ('A'..'D').to_a, numbers = (1..4).to_a) 
         letter = coordinates[0]
         number = coordinates[1]
         
@@ -221,7 +209,6 @@ class Board
         coordinate_array = coordinates.split(' ')
         possible_coordinates = coordinate_to_possible_coordinates(coordinate_array[0])
         return possible_coordinates.include?(coordinate_array[1])
-
     end
 
     def count_ships
@@ -245,10 +232,6 @@ class Board
         elsif cell_count == 0 && array.length == 2    
             puts "You sunk the little one!" 
             return true
-        end 
-
-        
-        
+        end         
     end 
-
 end 
