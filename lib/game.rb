@@ -1,4 +1,5 @@
 require './lib/board'
+require './lib/instructions'
 
 class Game
     attr_accessor :player_board, :computer_board, :phase
@@ -13,15 +14,16 @@ class Game
         Welcome to BATTLESHIP
 
         Would you like to (p)lay, read the (i)nstructions, 
-        or (q)uit?
-        >"
+        or (q)uit?"""
+        print '>'
         input = gets.chomp.downcase
         
         if input == 'p' || input == 'play'
             #transition into ship-placement phase. 
             @phase = :ship_placement
         elsif input == 'i' || input == 'instructions'
-            #move to instruction page
+            Instructions.display_instructions
+            @phase = :welcome
         elsif input == 'q' || input == 'quit'
             exit
         else
@@ -77,7 +79,7 @@ class Game
         puts "Man the gunwales! It's time to take a shot! Enter your coordinate:"
         print ">"
         player_shot = gets.chomp
-        @computer_board.take_a_shot(player_shot)
+        @computer_board.player_shot(player_shot)
 
         #computer shooting phase
         @player_board.computer_shot

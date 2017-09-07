@@ -3,6 +3,7 @@ require './lib/cell'
     # 3) mechanics of the shooting phase, altering properties of the cells
 class Board
     attr_accessor :cells
+    
     def initialize 
         @cells = Array.new(4) {Array.new(4) {Cell.new}}
     end 
@@ -25,7 +26,7 @@ class Board
                 elsif cell.state == :empty && cell.hit == :yes
                     row_visual = row_visual + 'M '
                 elsif cell.state == :ship && cell.hit == :no
-                    row_visual = row_visual + 'S '
+                    #row_visual = row_visual + 'S '
                 else 
                     row_visual = row_visual + 'H '
                 end 
@@ -60,11 +61,7 @@ class Board
     
         letter_value, number_value = coordinate_converter(coordinates)
         cell = @cells[letter_value][number_value]
-        cell.hit = :yes
-
-        
-        cell.state == :destroyed if cell.state == :ship
-            
+        cell.hit = :yes    
     
     end 
     
@@ -138,6 +135,19 @@ class Board
         all_cells = generate_all_cells
         selection = computer_coordinate_selection(all_cells)
         take_a_shot(selection)
+    end 
+
+    def player_shot(coordinates)
+        letter_value, number_value = coordinate_converter(coordinates)
+        cell = @cells[letter_value][number_value]
+        take_a_shot(coordinates)
+        
+        if cell.state == :ship
+            cell.state == :destroyed
+            puts "A hit!"
+        else   
+            puts 'A miss!'
+        end     
     end 
    
 
