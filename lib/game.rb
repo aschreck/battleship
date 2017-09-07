@@ -39,7 +39,6 @@ class Game
        
         
         puts computer_ship_message
-        #ask the player for her tiles
         
         first_ship_placement = ''
         until @player_board.coordinates_valid?(first_ship_placement)

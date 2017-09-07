@@ -107,7 +107,6 @@ class Board
         available_cells = generate_all_cells
         ship_coordinates = []
         until count == ship_size
-            #choose a coordinate from a single array. 
             coordinates = computer_coordinate_selection(available_cells) 
             ship_coordinates << coordinates
             cell = get_cell(coordinates)

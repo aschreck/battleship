@@ -1,15 +1,15 @@
-require 'minitest/autorun'
+require_relative "./test_helper"
 require './lib/board'
 class BoardTest < Minitest::Test
 
     def test_it_exists
-        skip
+
         board = Board.new
         assert_instance_of Board, board
     end 
 
     def test_converts_input_letter_to_array_value
-        skip
+     
         board = Board.new
         
         assert_equal 0,0 , board.coordinate_converter('A1')
@@ -17,16 +17,15 @@ class BoardTest < Minitest::Test
     end 
    
     def test_it_takes_shots
-        skip
+   
         board = Board.new
         board.take_a_shot('A2') 
         board.take_a_shot('B2')
         board.take_a_shot('C3')
-        board.display_board_board
+        board.display_board
     end 
     
     def test_prepends_letter_to_map
-        skip
         board = Board.new
         array = ['a','b','c','d']
         letter1 = board.prepend_letter_to_map(array, 'a')
@@ -52,30 +51,19 @@ class BoardTest < Minitest::Test
         board.take_a_shot('C3')
         board.take_a_shot('C4')
 
-        # display_board =
-        # '==========='
-        # '. 1 2 3 4  '
-        # 'A   H      '
-        # 'B H        '
-        # 'C     H M  '
-        # 'D          '
-        # '==========='
-        
-
         board.display_board
-
-    
     end
 
     def test_random_coordinates
-        skip 
         board = Board.new
-         puts board.computer_coordinate_selection 
-         puts board.computer_coordinate_selection 
+        possible_shots = %w(A1 B2 C3 D4)
+        shot = board.computer_coordinate_selection(possible_shots)
+
+        assert possible_shots.include?(shot)         
     end 
 
     def test_next_cell_builds_new_possibility_arrays
-        skip
+      
         board = Board.new
         char_array = ('A'..'D').to_a
         num_array = (1..4).to_a
@@ -90,9 +78,10 @@ class BoardTest < Minitest::Test
         assert_equal ['C', 'D'], edge_possibility2
    
     end 
+
    
     def test_new_possibility_builder
-        skip
+      
         board = Board.new
         numbers = (1..4).to_a
         letters = ('A'..'D').to_a
@@ -109,7 +98,7 @@ class BoardTest < Minitest::Test
     
     
     def test_array_permutations
-        skip
+     
         board = Board.new
         numbers = (1..2).to_a
         letters = ('A'..'B').to_a
@@ -120,7 +109,7 @@ class BoardTest < Minitest::Test
     end 
     
     def test_takes_coordinates_and_returns_all_possibilities
-        skip
+     
         board = Board.new
         letter_axis_possibilities, number_axis_possibilities = board.coordinate_to_possibilities('A3')
         
@@ -129,7 +118,7 @@ class BoardTest < Minitest::Test
     end 
     
     def test_array_permutations_can_return_list_of_all_possible_coordinates_not_arrays
-        skip
+        
         board = Board.new
         letter_axis_possibilities, number_axis_possibilities = board.coordinate_to_possibilities('A3')
         bloated_possible = board.array_permutations(letter_axis_possibilities, number_axis_possibilities)
@@ -138,12 +127,11 @@ class BoardTest < Minitest::Test
     end 
     
     def test_eliminate_impossible_coordinates
-        skip
+        
         board = Board.new
         letter_axis_possibilities, number_axis_possibilities = board.coordinate_to_possibilities('A3')
         bloated_possible = board.array_permutations(letter_axis_possibilities, number_axis_possibilities)
         
-        #I want some method that will cut out the invalid coordinates from bloated possible
         
         assert_equal ['A2', 'A4', 'B3'] , board.eliminate_invalid_coordinates(bloated_possible, 'A3')
         
@@ -158,7 +146,7 @@ class BoardTest < Minitest::Test
     end 
     
     def test_input_coordinate_return_array_of_real_possibilities
-        skip
+        
         board = Board.new
         possibilities = board.coordinate_to_possible_coordinates('B2')
         assert_equal ['A2','B1', 'B3', 'C2'],possibilities
