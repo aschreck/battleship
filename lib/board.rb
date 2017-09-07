@@ -26,7 +26,7 @@ class Board
                 elsif cell.state == :empty && cell.hit == :yes
                     row_visual = row_visual + 'M '
                 elsif cell.state == :ship && cell.hit == :no
-                    #row_visual = row_visual + 'S '
+                     row_visual = row_visual + '  '
                 else 
                     row_visual = row_visual + 'H '
                 end 
@@ -105,10 +105,11 @@ class Board
     def computer_ship_placer(ship_size)
         count = 0
         available_cells = generate_all_cells
+        ship_coordinates = []
         until count == ship_size
             #choose a coordinate from a single array. 
             coordinates = computer_coordinate_selection(available_cells) 
-            
+            ship_coordinates << coordinates
             cell = get_cell(coordinates)
             
             unless cell.ship?
@@ -122,7 +123,7 @@ class Board
             end 
         end 
         
-
+        ship_coordinates
     end 
     
    
@@ -246,5 +247,21 @@ class Board
         count
     end
 
+    def ship_alive?(array)
+        cell_count = array.length
+        array.each do |coordinate|
+            cell = get_cell(coordinate)
+            cell_count -= 1 if cell.hit == :yes
+        end 
+        if cell_count == 0 && array.length == 3
+            puts "You sunk the big one!" 
+            return true
+        elsif cell_count == 0 && array.length ==2    
+            puts "You sunk the little one!" 
+            return true
+        end 
+
+        
+    end 
 
 end 

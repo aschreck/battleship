@@ -14,9 +14,7 @@ class CellTest < Minitest::Test
         refute cell.ship? 
         
         cell.state = :ship
-        assert cell.ship?
-        
+        assert cell.ship?        
     end 
 
-    
 end 

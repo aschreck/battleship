@@ -7,6 +7,8 @@ class Game
         @player_board = Board.new
         @computer_board = Board.new
         @phase = :welcome
+        @two_ship = ''
+        @three_ship = ''
     end 
 
     def welcome_screen
@@ -32,8 +34,10 @@ class Game
     end 
 
     def ship_placement_phase
-        @computer_board.computer_ship_placer(2)
-        @computer_board.computer_ship_placer(3)
+        @two_ship = @computer_board.computer_ship_placer(2)
+        @three_ship = @computer_board.computer_ship_placer(3)
+       
+        
         puts computer_ship_message
         #ask the player for her tiles
         
@@ -72,19 +76,19 @@ class Game
     def main_phase
         victor = :nobody
         count = 0
-        #the player is shooting at the computer board and vice_versa
+        two_ship = false
+        three_ship = false
         until victor == :human || victor == :computer
-        #player shooting phase
         @computer_board.display_board
         puts "Man the gunwales! It's time to take a shot! Enter your coordinate:"
         print ">"
         player_shot = gets.chomp
         @computer_board.player_shot(player_shot)
 
-        #computer shooting phase
         @player_board.computer_shot
-        #check if anyone's count == 0    
-            
+        
+        two_ship = @computer_board.ship_alive?(@two_ship) unless two_ship
+        three_ship = @computer_board.ship_alive?(@three_ship) unless three_ship
         victor = :human if @computer_board.count_ships == 0
         victor = :computer if @player_board.count_ships == 0
         count += 1
